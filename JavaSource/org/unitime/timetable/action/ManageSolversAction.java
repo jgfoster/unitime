@@ -40,7 +40,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.unitime.commons.web.WebTable;
 import org.unitime.localization.impl.Localization;
-import org.unitime.timetable.defaults.ApplicationProperty;
 import org.unitime.timetable.defaults.SessionAttribute;
 import org.unitime.timetable.form.ManageSolversForm;
 import org.unitime.timetable.gwt.resources.GwtMessages;
@@ -119,31 +118,19 @@ public class ManageSolversAction extends Action {
         	case COURSE:
             	sessionContext.setAttribute(SessionAttribute.CourseTimetablingUser, puid);
             	sessionContext.removeAttribute(SessionAttribute.CourseTimetablingSolver);
-            	if (ApplicationProperty.LegacySolver.isTrue()) {
-            		return mapping.findForward("showSolver");
-            	} else {
-            		response.sendRedirect("gwt.jsp?page=solver&type=course");
-            		return null;
-            	}
+        		response.sendRedirect("gwt.jsp?page=solver&type=course");
+        		return null;
         	case EXAM:
                 sessionContext.setAttribute(SessionAttribute.ExaminationUser, puid);
                 sessionContext.removeAttribute(SessionAttribute.ExaminationSolver);
                 LookupTables.setupExamTypes(request, sessionContext.getUser().getCurrentAcademicSessionId());
-            	if (ApplicationProperty.LegacySolver.isTrue()) {
-            		return mapping.findForward("showExamSolver");
-            	} else {
-            		response.sendRedirect("gwt.jsp?page=solver&type=exam");
-            		return null;
-            	}
+        		response.sendRedirect("gwt.jsp?page=solver&type=exam");
+        		return null;
         	case STUDENT:
                 sessionContext.setAttribute(SessionAttribute.StudentSectioningUser, puid);
                 sessionContext.removeAttribute(SessionAttribute.StudentSectioningSolver);
-                if (ApplicationProperty.LegacySolver.isTrue()) {
-            		return mapping.findForward("showStudentSolver");
-            	} else {
-            		response.sendRedirect("gwt.jsp?page=solver&type=student");
-            		return null;
-            	}
+        		response.sendRedirect("gwt.jsp?page=solver&type=student");
+        		return null;
         	case INSTRUCTOR:
                 sessionContext.setAttribute(SessionAttribute.InstructorSchedulingUser, puid);
                 sessionContext.removeAttribute(SessionAttribute.InstructorSchedulingSolver);
